@@ -3,6 +3,10 @@
 This repository is designed to convert GIFs to MOVs while respecting transparency,
 and to illustrate the use of HEVCs with transparency in SceneKit for Augmented Reality apps.
 
+
+https://github.com/snowzurfer/invisibile/assets/6337894/6ef552bf-2c1c-4417-ad5b-218677de9bcd
+
+
 ## Details
 
 The repository is divided in two parts:
