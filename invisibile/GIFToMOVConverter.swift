@@ -33,7 +33,7 @@ public actor GIFToMOVConverter {
         assetWriter = try AVAssetWriter(outputURL: temporaryFileURL, fileType: .mov)
     }
     
-    public func createVideo(from gifData: Data) async throws -> (size: CGSize, videoUrl: URL) {
+    public func createVideo(from gifData: Data, resizedToMaxSize: CGFloat) async throws -> (size: CGSize, videoUrl: URL) {
         guard let source = CGImageSourceCreateWithData(gifData as CFData, nil) else {
             throw ConverterError.error(reason: "CGImageSourceCreateWithData returned nil")
         }
@@ -44,7 +44,7 @@ public actor GIFToMOVConverter {
         }
         
         // Read the final size after we cap it
-        let size = try calculateCappedSize(for: source, maxSize: maxImageSize)
+        let size = try calculateCappedSize(for: source, maxSize: resizedToMaxSize)
         
         // Create the adaptors
         let (writerInput, pixelBufferAdaptor) = makeAVWriterInputAndAdaptor(size: size)
@@ -120,7 +120,7 @@ public actor GIFToMOVConverter {
     private func makeAVWriterInputAndAdaptor(size: CGSize) -> (writerInput: AVAssetWriterInput, pixelBufferAdaptor: AVAssetWriterInputPixelBufferAdaptor) {
         // Create an AVAssetWriterInput
         // This value was chosen arbitrarily. You can tweak it
-        let alphaQuality = 0.8
+        let alphaQuality = 1
         let writerInput = AVAssetWriterInput(mediaType: .video, outputSettings: [
             AVVideoCodecKey: AVVideoCodecType.hevcWithAlpha,
             AVVideoWidthKey: size.width,
@@ -135,7 +135,8 @@ public actor GIFToMOVConverter {
             kCVPixelBufferWidthKey as String: size.width,
             kCVPixelBufferHeightKey as String: size.height,
             kCVPixelBufferCGImageCompatibilityKey as String: true,
-            kCVPixelBufferCGBitmapContextCompatibilityKey as String: true
+            kCVPixelBufferCGBitmapContextCompatibilityKey as String: true,
+            kCVPixelBufferPoolMinimumBufferCountKey as String: 3
         ]
         
         // Create an AVAssetWriterInputPixelBufferAdaptor
@@ -147,17 +148,25 @@ public actor GIFToMOVConverter {
     private func resize(ciImage: CIImage, toSize size: CGSize) -> CIImage? {
         // Calculate the scale factors
         let scaleX = size.width / ciImage.extent.width
-        let aspectRatio = size.width / size.height
-        
+        let scaleY = size.height / ciImage.extent.height
+        let scale = max(scaleX, scaleY)
+
         // Create an affine transform filter
         let scaleFilter = CIFilter(name: "CILanczosScaleTransform")!
         scaleFilter.setValue(ciImage, forKey: kCIInputImageKey)
-        scaleFilter.setValue(scaleX, forKey: kCIInputScaleKey)
-        scaleFilter.setValue(aspectRatio, forKey: kCIInputAspectRatioKey)
-        let scaledCIImage = scaleFilter.outputImage
-        
+        scaleFilter.setValue(scale, forKey: kCIInputScaleKey)
+        scaleFilter.setValue(1.0, forKey: kCIInputAspectRatioKey) // Preserve aspect ratio
+        guard let scaledCIImage = scaleFilter.outputImage else {
+            return nil
+        }
+
+        // Calculate origin for crop to maintain center of image
+        let originX = (scaledCIImage.extent.width - size.width) / 2
+        let originY = (scaledCIImage.extent.height - size.height) / 2
+        let cropRect = CGRect(origin: CGPoint(x: originX, y: originY), size: size)
+
         // Center crop to required size
-        let croppedCIImage = scaledCIImage?.cropped(to: CGRect(origin: CGPoint.zero, size: size))
+        let croppedCIImage = scaledCIImage.cropped(to: cropRect)
         
         return croppedCIImage
     }
@@ -202,7 +211,7 @@ public actor GIFToMOVConverter {
         CVPixelBufferLockBaseAddress(finalPixelBuffer, [])
         
         // Render CIImage to CVPixelBuffer
-        ciContext.render(ciImage, to: finalPixelBuffer, bounds: CGRect(origin: .zero, size: frameSize), colorSpace: nil)
+        ciContext.render(ciImage, to: finalPixelBuffer, bounds: CGRect(origin: .zero, size: frameSize), colorSpace: ciImage.colorSpace)
         
         CVPixelBufferUnlockBaseAddress(finalPixelBuffer, [])
         

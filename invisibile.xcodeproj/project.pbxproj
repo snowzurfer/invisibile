@@ -7,23 +7,25 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D31E5B252A13C60F00FEF682 /* front_hair.gif in Resources */ = {isa = PBXBuildFile; fileRef = D31E5B242A13C60F00FEF682 /* front_hair.gif */; };
 		D3B236E12A119B1600C858BD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B236E02A119B1600C858BD /* AppDelegate.swift */; };
 		D3B236E32A119B1600C858BD /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B236E22A119B1600C858BD /* ContentView.swift */; };
 		D3B236E72A119B1800C858BD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D3B236E62A119B1800C858BD /* Assets.xcassets */; };
 		D3B236EA2A119B1800C858BD /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D3B236E92A119B1800C858BD /* Preview Assets.xcassets */; };
-		D3B236F32A119E1700C858BD /* front_hair.gif in Resources */ = {isa = PBXBuildFile; fileRef = D3B236F22A119E1700C858BD /* front_hair.gif */; };
+		D3B236F32A119E1700C858BD /* front_hair_2.gif in Resources */ = {isa = PBXBuildFile; fileRef = D3B236F22A119E1700C858BD /* front_hair_2.gif */; };
 		D3B236F52A11A71800C858BD /* GIFToMOVConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B236F42A11A71800C858BD /* GIFToMOVConverter.swift */; };
 		D3B236F82A12B6CB00C858BD /* VideoSpriteKitSceneNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B236F72A12B6CB00C858BD /* VideoSpriteKitSceneNode.swift */; };
 		D3B236FD2A13790900C858BD /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = D3B236FC2A13790900C858BD /* README.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D31E5B242A13C60F00FEF682 /* front_hair.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = front_hair.gif; sourceTree = "<group>"; };
 		D3B236DD2A119B1600C858BD /* invisibile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = invisibile.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3B236E02A119B1600C858BD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D3B236E22A119B1600C858BD /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		D3B236E62A119B1800C858BD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D3B236E92A119B1800C858BD /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		D3B236F22A119E1700C858BD /* front_hair.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = front_hair.gif; sourceTree = "<group>"; };
+		D3B236F22A119E1700C858BD /* front_hair_2.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = front_hair_2.gif; sourceTree = "<group>"; };
 		D3B236F42A11A71800C858BD /* GIFToMOVConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GIFToMOVConverter.swift; sourceTree = "<group>"; };
 		D3B236F72A12B6CB00C858BD /* VideoSpriteKitSceneNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoSpriteKitSceneNode.swift; sourceTree = "<group>"; };
 		D3B236FB2A13757D00C858BD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -84,7 +86,8 @@
 		D3B236F12A119DFC00C858BD /* resources */ = {
 			isa = PBXGroup;
 			children = (
-				D3B236F22A119E1700C858BD /* front_hair.gif */,
+				D31E5B242A13C60F00FEF682 /* front_hair.gif */,
+				D3B236F22A119E1700C858BD /* front_hair_2.gif */,
 			);
 			path = resources;
 			sourceTree = "<group>";
@@ -148,9 +151,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				D3B236EA2A119B1800C858BD /* Preview Assets.xcassets in Resources */,
-				D3B236F32A119E1700C858BD /* front_hair.gif in Resources */,
+				D3B236F32A119E1700C858BD /* front_hair_2.gif in Resources */,
 				D3B236FD2A13790900C858BD /* README.md in Resources */,
 				D3B236E72A119B1800C858BD /* Assets.xcassets in Resources */,
+				D31E5B252A13C60F00FEF682 /* front_hair.gif in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

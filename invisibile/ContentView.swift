@@ -30,7 +30,7 @@ struct ContentView : View {
                         let gifData = try Data(contentsOf: gifUrl)
                         let converter = try GIFToMOVConverter()
                         
-                        let (resizedVideoSize, temporaryUrl) = try await converter.createVideo(from: gifData)
+                        let (resizedVideoSize, temporaryUrl) = try await converter.createVideo(from: gifData, resizedToMaxSize: maxImageSize)
                         
                         // If in DEBUG mode, copy the result video to the Documents' directory so that it can
                         // be inspected via the Files app to check that the conversion happened correctly.
