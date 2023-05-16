@@ -15,6 +15,11 @@ This ensures that the transparency present in the GIF layers is respected.
 This is especially useful when you want to layer multiple GIFs in 3D on top of each other and
 have them also be see-through, to save memory.
 
+But it can also be used in any other situation where you need to save memory but stil display
+GIFs. For example, when saving GIFs to a database to dispay them later on other devices: converting
+them to HEVC files will save time in uploading and downloading and provide a much better experience.
+See this article for more details: [Replace animated GIFs with video for faster page loads](https://web.dev/replace-gifs-with-videos).
+
 If you just used the GIF layers directly, displaying them as textures in SceneKit or RealityKit,
 you would quickly run out of memory on iPhone.
 
